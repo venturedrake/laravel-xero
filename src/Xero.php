@@ -131,7 +131,7 @@ class Xero
      */
     public function getTokenData()
     {
-        return XeroToken::first();
+        return XeroToken::where('team_id', auth()->user()->currentTeam->id)->first();
     }
 
     /**
@@ -236,7 +236,8 @@ class Xero
             'expires_in'    => $token['expires_in'],
             'token_type'    => $token['token_type'],
             'refresh_token' => $token['refresh_token'],
-            'scopes'        => $token['scope']
+            'scopes'        => $token['scope'],
+            'team_id'       => auth()->user()->currentTeam->id,
         ];
 
         if ($tenantData != null) {
