@@ -237,7 +237,6 @@ class Xero
             'token_type'    => $token['token_type'],
             'refresh_token' => $token['refresh_token'],
             'scopes'        => $token['scope'],
-            'team_id'       => auth()->user()->currentTeam->id,
         ];
 
         if ($tenantData != null) {
@@ -245,7 +244,7 @@ class Xero
         }
 
         //cretate a new record or if the user id exists update record
-        return XeroToken::updateOrCreate(['id' => 1], $data);
+        return XeroToken::updateOrCreate(['team_id' => auth()->user()->currentTeam->id], $data);
     }
 
     /**
